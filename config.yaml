@@ -1,0 +1,18 @@
+machine_id: 1
+port: 8888
+start_time: "2022-05-12"
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  root: "root"
+  password: "root"
+  db_name: "tiktok"
+  max_open_conn: 200
+  max_idle_conn: 50
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  db: 0
+  pool_size: 100
