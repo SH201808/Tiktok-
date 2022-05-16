@@ -19,10 +19,10 @@ import (
 )
 
 const (
-	AesKeyError       = "crypto key is illegal, need to change the config files"
-	DecodeStringError = "there is a problem when decoding the encrypted string"
-	UnknownEncodeType = "switch encode_type with an unknown value, it will be encoded as in Standard mode"
-	UnknownDecodeType = "switch decode_type with an unknown value"
+	AesKeyError            = "crypto key is illegal, need to change the config files"
+	DecodeStringError      = "there is a problem when decoding the encrypted string"
+	UnknownEncodeTypeError = "switch encode_type with an unknown value, it will be encoded as in Standard mode"
+	UnknownDecodeTypeError = "switch decode_type with an unknown value"
 
 	UrlOrFile = iota
 	Standard
@@ -66,7 +66,7 @@ func Encrypt(originData []byte, encodeMode int) (data string, err error) {
 		return base64.URLEncoding.EncodeToString(encrypted), nil
 	}
 
-	return base64.StdEncoding.EncodeToString(encrypted), errors.New(UnknownEncodeType)
+	return base64.StdEncoding.EncodeToString(encrypted), errors.New(UnknownEncodeTypeError)
 }
 
 // Decrypt
@@ -96,7 +96,7 @@ func Decrypt(encryptedData string, decodeMode int) (data []byte, err error) {
 	} else if decodeMode == UrlOrFile {
 		encryptedByte, e = base64.URLEncoding.DecodeString(encryptedData)
 	} else {
-		return nil, errors.New(UnknownDecodeType)
+		return nil, errors.New(UnknownDecodeTypeError)
 	}
 	if e != nil {
 		return nil, errors.New(DecodeStringError)
