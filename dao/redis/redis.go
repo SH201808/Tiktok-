@@ -14,10 +14,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/go-redis/redis/v8"
 	"log"
-	"tiktok/setting"
 	"time"
+
+	"github.com/go-redis/redis/v8"
+
+	"tiktok/setting"
 )
 
 const (
@@ -73,7 +75,7 @@ func Close() {
 	defer func(RedisDB *redis.Client) {
 		err := RedisDB.Close()
 		if err != nil {
-			log.Fatal("a fatal error occurred when closing the DB")
+			log.Fatal("a fatal error occurred while closing the RedisDB connection")
 			return
 		}
 	}(DB)
@@ -128,6 +130,9 @@ func GetValue(ctx context.Context, key string) (value any, err error) {
 // @version 0.1
 //
 func SetValue(ctx context.Context, key string, value any, writeOn bool, expiredTime time.Duration) (err error) {
+	if ctx == nil {
+		ctx = ctxDefault
+	}
 	if writeOn {
 		err = DB.SetEX(ctx, key, value, expiredTime).Err()
 	} else {
