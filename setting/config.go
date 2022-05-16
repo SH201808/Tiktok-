@@ -17,10 +17,7 @@ type TikTokConfig struct {
 	StartTime    string `mapstructure:"start_time"`
 	*MySQLConfig `mapstructure:"mysql"`
 	*RedisConfig `mapstructure:"redis"`
-	*AESConfig   `mapstructure:"aes"`
-	*TokenConfig `mapstructure:"token"`
 }
-
 type MySQLConfig struct {
 	Host        string `mapstructure:"host"`
 	Port        int    `mapstructure:"port"`
@@ -33,19 +30,9 @@ type MySQLConfig struct {
 
 type RedisConfig struct {
 	Host     string `mapstructure:"host"`
-	User     string `mapstructure:"user"`
-	Password string `mapstructure:"password"`
 	Port     int    `mapstructure:"port"`
 	Db       int    `mapstructure:"db"`
 	PoolSize int    `mapstructure:"pool_size"`
-}
-
-type AESConfig struct {
-	Key string `mapstructure:"key"`
-}
-
-type TokenConfig struct {
-	Secret string `mapstructure:"secret"`
 }
 
 var Conf = new(TikTokConfig)
